@@ -6,5 +6,6 @@ were compiled for use during the demonstration session of the one-week school,
 
 > [*Biophysics:* Measuring and Modelling Biology](http://memobio2015.u-strasbg.fr/index.php),
 > École de Physique des Houches,
-> Les Houches, France
+> Les Houches, France, 
+> October, 2015
 
