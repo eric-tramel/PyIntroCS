@@ -3,7 +3,7 @@ import numpy as np
 import copy
 
 def ShowSignal(x):
-    plt.rc('text',usetex=True)
+    plt.rc('text',usetex=False)
     plt.rc('font', family='serif')
     
     f = plt.figure(figsize=(15,5))
@@ -14,7 +14,7 @@ def ShowSignal(x):
     plt.ylabel("Value", fontsize=18)
 
 def CompareER(xname,x,yname,y,TestedK):
-    plt.rc('text',usetex=True)
+    plt.rc('text',usetex=False)
     plt.rc('font', family='serif')
     
     f = plt.figure(figsize=(12,5))
@@ -31,7 +31,7 @@ def CompareER(xname,x,yname,y,TestedK):
 
 
 def ShowDecay(x,scalemode='linear'):
-    plt.rc('text',usetex=True)
+    plt.rc('text',usetex=False)
     plt.rc('font', family='serif')
     
     n = np.size(x)
@@ -64,7 +64,7 @@ def ShowWaveletDecay(w):
     ShowDecay(x)
 
 def CompareHistograms(xname,x,yname,y):
-    plt.rc('text',usetex=True)
+    plt.rc('text',usetex=False)
     plt.rc('font', family='serif')    
     
     f = plt.figure(figsize=(12,5))
@@ -88,7 +88,7 @@ def CompareHistograms(xname,x,yname,y):
     plt.xlabel("Magnitude $|x_i|$", fontsize=18)  
 
 def CompareDecayTwo(xname,x,yname,y,scalemode='linear'):
-    plt.rc('text',usetex=True)
+    plt.rc('text',usetex=False)
     plt.rc('font', family='serif')
 
     n = np.size(x)
@@ -112,7 +112,7 @@ def CompareDecayTwo(xname,x,yname,y,scalemode='linear'):
     plt.legend()
 
 def CompareDecayThree(xname,x,yname,y,zname,z):
-    plt.rc('text',usetex=True)
+    plt.rc('text',usetex=False)
     plt.rc('font', family='serif')
     
     xsort = sorted(abs(x),reverse=True)
@@ -132,7 +132,7 @@ def CompareDecayThree(xname,x,yname,y,zname,z):
     plt.legend()
     
 def CompareEnergyCompaction(xname,x,yname,y,zname,z):
-    plt.rc('text',usetex=True)
+    plt.rc('text',usetex=False)
     plt.rc('font', family='serif')
     
     f = plt.figure(figsize=(10,5))
@@ -148,7 +148,7 @@ def CompareEnergyCompaction(xname,x,yname,y,zname,z):
     plt.legend()
     
 def CompareMSE(xname,x,yname,y,zname,z):
-    plt.rc('text',usetex=True)
+    plt.rc('text',usetex=False)
     plt.rc('font', family='serif')
     
     f = plt.figure(figsize=(10,5))
