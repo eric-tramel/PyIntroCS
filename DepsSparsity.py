@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt     # PyPlot for Plotting
 import numpy as np
+import copy
 
 def ShowSignal(x):
     plt.rc('text',usetex=True)
@@ -164,9 +165,12 @@ def CompareMSE(xname,x,yname,y,zname,z):
     plt.ylabel("$1/N||\mathbf{x}-\mathbf{x}_K||_2^2$", fontsize=16)  
     plt.legend()
 
-def ShowWaveletCoeffs(W):
+def ShowWaveletCoeffs(W,SuppressBaseband=False,Magnitude=True,cmapname='jet'):
     L = np.size(W)
-    X = np.concatenate((W[0],W[1][0]),axis=1)
+    bb = np.array(W[0])
+    if SuppressBaseband:
+        bb = np.nan * bb
+    X = np.concatenate((bb,W[1][0]),axis=1)
     tmp = np.concatenate((W[1][1],W[1][2]),axis=1)
     X = np.concatenate((X,tmp),axis=0)
 
@@ -175,7 +179,48 @@ def ShowWaveletCoeffs(W):
         tmp = np.concatenate((W[l][1],W[l][2]),axis=1)
         X = np.concatenate((X,tmp),axis=0)
 
-    f = plt.figure(figsize=(20,20))
-    plt.matshow(abs(X),cmap='jet');
+    f = plt.figure(figsize=(20,20),dpi=300)
+    if Magnitude:
+        plt.matshow(np.abs(X),cmap=cmapname);
+    else:
+        plt.matshow(X,cmap=cmapname);
+
+def ShowWaveletDecay(w):
+    ShowDecay(WaveletToVector(w))
+
+
+def WaveletToVector(w):    
+    x = np.reshape(w[0],(np.size(w[0]),1))
+
+    for l in range(1,np.size(w)):
+        h = np.reshape(w[l][0],(np.size(w[l][0]),1))
+        v = np.reshape(w[l][1],(np.size(w[l][1]),1))
+        d = np.reshape(w[l][2],(np.size(w[l][2]),1))
+        x = np.concatenate((x,h,v,d),axis=0)
+    return x
+
+def WaveletTopKApproximation(wim,K):
+    W = copy.deepcopy(wim)
+
+    l = np.size(W)
+    x = WaveletToVector(W)
+    x = sorted(abs(x),reverse=True)
+    ## Get the threshold
+    T = abs(x[K])
+
+    W = list(W)
+    W[0][abs(W[0]) < T] = 0.0
+
+    for level in range(1,l):  
+        W[level] = list(W[level])
+        for dir in [0,1,2]:
+            thisw = W[level][dir]
+            thisw[abs(thisw) < T] = 0.0
+            W[level][dir] = thisw
+
+    return W
+
+
+
 
 
